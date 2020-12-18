@@ -470,7 +470,7 @@ void FlowViewWindow::updatedFrames(int numFrames)
                 }
             }
         }
-        if (ui->cbLiveMode->checkState() == Qt::Checked)
+        if (ui->cbLiveMode->checkState() == Qt::Checked && frameCache.count() > 0)
         {
             currentPosition = frameCache.count() - 1;
             memcpy(currBytes, frameCache.at(currentPosition).payload(), 8);
