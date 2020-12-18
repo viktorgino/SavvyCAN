@@ -636,6 +636,11 @@ void MainWindow::gotCenterTimeID(int32_t ID, double timestamp)
 
 void MainWindow::clearFrames()
 {
+    connectionWindow->setSuspendAll(true);
+    allowCapture = false;
+
+    ui->btnCaptureToggle->setText("Restart Capturing");
+
     ui->canFramesView->scrollToTop();
     model->clearFrames();
     CANConManager::getInstance()->resetTimeBasis();
