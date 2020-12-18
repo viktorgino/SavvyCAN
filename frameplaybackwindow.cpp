@@ -256,12 +256,16 @@ void FramePlaybackWindow::loadFilters()
                 if (checked)
                 {
                     QHash<int,bool>::iterator it;
-                    for (it = currentSeqItem->idFilters.begin(); it != currentSeqItem->idFilters.end(); ++it)
-                    {
-                        if (it.key() == ID)
+                    if(currentSeqItem){
+                        for (it = currentSeqItem->idFilters.begin(); it != currentSeqItem->idFilters.end(); ++it)
                         {
-                            it.value() = true;
+                            if (it.key() == ID)
+                            {
+                                it.value() = true;
+                            }
                         }
+                    } else {
+                        qWarning() << "Error adding filters when no playback sequence selected";
                     }
                     for (int c = 0; c < ui->listID->count(); c++)
                     {
@@ -406,6 +410,7 @@ void FramePlaybackWindow::seqTableCellClicked(int row, int col)
         currentSeqNum = row;
         currentSeqItem = &seqItems[row];
         refreshIDList();
+        ui->btnLoadFilters->setEnabled(true);
     }
 }
 
@@ -467,6 +472,8 @@ void FramePlaybackWindow::btnDeleteCurrSeq()
     {
         currentSeqNum = -1;
         currentSeqItem = nullptr;
+
+        ui->btnLoadFilters->setEnabled(false);
     }
     refreshIDList();
     updateFrameLabel();
@@ -500,6 +507,7 @@ void FramePlaybackWindow::btnLoadFile()
             currentSeqNum = 0;
             currentSeqItem = &seqItems[0];
             playbackObject.setSequenceObject(currentSeqItem);
+            ui->btnLoadFilters->setEnabled(true);
         }
         refreshIDList();
         updateFrameLabel();
@@ -529,6 +537,7 @@ void FramePlaybackWindow::btnLoadLive()
         currentSeqNum = 0;
         currentSeqItem = &seqItems[0];
         playbackObject.setSequenceObject(currentSeqItem);
+        ui->btnLoadFilters->setEnabled(true);
     }
     refreshIDList();
     updateFrameLabel();
@@ -568,6 +577,7 @@ void FramePlaybackWindow::btnStopClick()
     else {
         currentSeqNum = -1;
         currentSeqItem = nullptr;
+        ui->btnLoadFilters->setEnabled(true);
     }
     if (ui->tblSequence->rowCount() > 0)
     {

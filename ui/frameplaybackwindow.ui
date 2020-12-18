@@ -339,6 +339,9 @@
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
           <widget class="QPushButton" name="btnLoadFilters">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>Load Filters</string>
            </property>
