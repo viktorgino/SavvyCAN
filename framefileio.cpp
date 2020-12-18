@@ -1828,8 +1828,7 @@ bool FrameFileIO::loadNativeCSVFile(QString filename, QVector<CANFrame>* frames)
                     if (lng > 8) lng = 8;
                     if (lng < 0) lng = 0;
                     if (lng + 5 > tokens.length()) lng = tokens.length() - 5;
-                    QByteArray bytes(lng, 0);
-                    for (int c = 0; c < 8; c++) bytes[c] = 0;
+                    QByteArray bytes(8, 0);
                     for (int d = 0; d < lng; d++)
                         bytes[d] = static_cast<char>(tokens[5 + d].toInt(nullptr, 16));
                     thisFrame.setPayload(bytes);

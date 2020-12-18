@@ -230,7 +230,7 @@ void GVRetSerial::piSetBusSettings(int pBusIdx, CANBus bus)
 
 bool GVRetSerial::piSendFrame(const CANFrame& frame)
 {
-    QByteArray buffer;
+    QByteArray buffer(8 + frame.payload().length()+1, 0);
     int c;
     quint32 ID;
 
